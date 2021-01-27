@@ -28,8 +28,8 @@ class RegistrationForm extends App {
         <div>
         <Component {...pageProps}/>
         </div>
-        <Footer />
       </div>
+      <Footer />
       </div>
     )
   }

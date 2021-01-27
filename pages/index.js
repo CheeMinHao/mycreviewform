@@ -11,9 +11,6 @@ const Home = () => {
         <ReviewForm handleFormSubmit={createReview}/>
       </div>
 
-      <div>
-
-      </div>
   </div>
   )
 } 

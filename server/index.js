@@ -1,36 +1,47 @@
 const express = require('express')
 const next = require('next')
 const {PrismaClient} = require('@prisma/client')
+const bodyParser = require('body-parser')
+
+const dev = process.env.NODE_ENV !== 'production'
+const app = next({dev})
+const handle = app.getRequestHandler()
 
 const prisma = new PrismaClient()
-const app = express()
+const server = express()
 
-app.use(express.json())
+app.prepare().then(() => {
+  const server = express();
+  server.use(bodyParser.json())
 
-app.get('/api/v1/review', async (req, res) => {
-    const review = await prisma.review.findMany()
-    res.json(review)
-})
+  server.get('/review', async (req, res) => {
+    const review = await prisma.post.findMany()
+    return res.json(review)
+  })
 
-app.post(`/api/v1/review`, async (req, res) => {
-    // const { name, email, purchase, review, img, vid } = req.body
-    const result = await prisma.review.create({
+  server.post(`/review`, async (req, res) => {
+    const { name, email, purchase, review, img, vid } = req.body
+    const result = await prisma.post.create({
       data: {
-        // name,
-        // email,
-        // purchase,
-        // review,
-        // img,
-        // vid
-        ...req.body
+        name,
+        email,
+        purchase,
+        review,
+        img,
+        vid
+        // ...req.body
       },
     })
-    res.json(result)
-})
+    return res.json(result)
+  })
 
-app.listen(3000, () =>
-console.log('REST API server ready at: http://localhost:3000'),
-)
+  const PORT = process.env.PORT || 3000;
+
+  server.use(handle).listen(PORT, (err) => {
+    if (err) throw err
+    console.log('> Ready on port ' + PORT)
+  })
+})
 
 
 
