@@ -1,38 +1,39 @@
-import {useState} from 'react'
+import React, {useState} from 'react'
 import TextareaAutosize from 'react-autosize-textarea'
+import fetch from 'isomorphic-unfetch'
 
-const ReviewForm = (props) => {
+const ReviewForm = () => {
 
-    const [form, setForm] = useState({
-      name: '',
-      email: '',
-      purchase: '',
-      review: '',
-      img: '',
-      vid: ''
-    })
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [purchase, setPurchase] = useState('')
+  const [review, setReview] = useState('')
+  const [img, setImg] = useState('')
+  const [vid, setVid] = useState('')
 
-    const handleChange = (event) => {
-      const target = event.target
-      const name = target.name
-
-      setForm({
-        ...form,
-        [name]: target.value
+  
+  const submitForm = async e => {
+    e.preventDefault()
+    try {
+      const body = {name, email, purchase, review, img, vid}
+      const res = await fetch(`http://localhost:3000/api/review`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
       })
+      const data = await res.json()
+    } catch (error) {
+      console.error(error)
     }
-
-    const submitForm = () => {
-      props.handleFormSubmit({...form})
-    }
+  }
 
         return (
-        <form>
+        <form onSubmit={submitForm}>
           <div className="form-group">
             <label className="form-label" id="name" htmlFor="name">Full Name<span className="clue"> (as per IC)</span></label>
             <input
-            onChange={handleChange}
-            value={form.name}
+            onChange={e => setName(e.target.value)}
+            value={name}
             type="text"
             id="name"
             name="name"
@@ -42,8 +43,8 @@ const ReviewForm = (props) => {
           <div className="form-group">
             <label className="form-label" id="email" htmlFor="email">Email</label>
             <input
-            onChange={handleChange}
-            value={form.email}
+            onChange={e => setEmail(e.target.value)}
+            value={email}
             type="text"
             id="email"
             className="texting"
@@ -53,8 +54,8 @@ const ReviewForm = (props) => {
           <div className="form-group">
             <label className="form-label" id="purchase" htmlFor="purchase">Date of Purhcase</label>
             <input
-            onChange={handleChange}
-            value={form.purchase}
+            onChange={e => setPurchase(e.target.value)}
+            value={purchase}
             type="date"
             id="purchase"
             className="date-text"
@@ -63,8 +64,8 @@ const ReviewForm = (props) => {
           <div className="form-group">
             <label className="form-label" id="review" htmlFor="review">Product Review</label>
             <TextareaAutosize
-            onChange={handleChange}
-            value={form.review}
+            onChange={e => setReview(e.target.value)}
+            value={review}
             id="review"
             name="review"
             className="input-textarea"
@@ -74,8 +75,8 @@ const ReviewForm = (props) => {
           <div className="form-group">
             <label className="form-label" id="img" htmlFor="img">Image Upload</label>
             <input
-            onChange={handleChange}
-            value={form.img}
+            onChange={e => setImg(e.target.value)}
+            value={img}
             type="text"
             placeholder="Insert Link Here"
             className="texting"
@@ -85,8 +86,8 @@ const ReviewForm = (props) => {
           <div className="form-group">
             <label className="form-label" id="vid" htmlFor="vid">Video Upload</label>
             <input
-            onChange={handleChange}
-            value={form.vid}
+            onChange={e => setVid(e.target.value)}
+            value={vid}
             type="text"
             id="vid"
             name="vid"
@@ -94,7 +95,7 @@ const ReviewForm = (props) => {
             className="texting" />
           </div>
           <div>
-            <button onClick={submitForm} type="submit" id="submit" className="button1">Submit</button>
+            <button type="submit" id="submit" className="button1">Submit</button>
           </div>
         </form>
         )

@@ -8,7 +8,7 @@ const Home = () => {
     <div>
 
       <div className="form-main">
-        <ReviewForm handleFormSubmit={createReview}/>
+        <ReviewForm/>
       </div>
 
   </div>
