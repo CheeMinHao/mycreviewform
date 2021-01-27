@@ -95,7 +95,7 @@ const ReviewForm = () => {
             className="texting" />
           </div>
           <div>
-            <button type="submit" id="submit" className="button1">Submit</button>
+            <input type="submit" id="submit" className="button1" value="Submit" />
           </div>
         </form>
         )
