@@ -1,5 +1,4 @@
 import React from 'react'
-import { createReview } from '../actions'
 import ReviewForm from '../components/review'
 
 
