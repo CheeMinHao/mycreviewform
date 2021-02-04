@@ -8,10 +8,11 @@
     "start": "next start"
   },
   "dependencies": {
-    "@prisma/client": "^2.15.0",
+    "@prisma/client": "^2.16.0",
     "@zeit/next-css": "^1.0.1",
     "@zeit/next-sass": "^1.0.1",
     "axios": "^0.21.1",
+    "caniuse-lite": "^1.0.30001183",
     "datauri": "^3.0.0",
     "express": "^4.17.1",
     "isomorphic-unfetch": "^3.1.0",

@@ -12,6 +12,7 @@ model review_form {
   name     String
   email    String
   purchase String
+  radio    String
   review   String
   img      String?
   vid      String?

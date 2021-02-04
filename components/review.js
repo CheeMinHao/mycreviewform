@@ -10,16 +10,17 @@ const ReviewForm = () => {
   const [review, setReview] = useState('')
   const [img, setImg] = useState('')
   const [vid, setVid] = useState('')
+  const [answer, setAnswer] = useState('')
 
   
   const submitForm = async e => {
-    e.preventDefault()
+    // e.preventDefault()
     try {
-      const body = {name, email, purchase, review, img, vid}
+      const body = {name, email, purchase, answer, review, img, vid}
       const res = await fetch(`http://localhost:3000/api/review`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
+        body: JSON.stringify(body)
       })
       const data = await res.json()
     } catch (error) {
@@ -52,7 +53,7 @@ const ReviewForm = () => {
             name="email" required />
           </div>
           <div className="form-group">
-            <label className="form-label" id="purchase" htmlFor="purchase">Date of Purhcase</label>
+            <label className="form-label" id="purchase" htmlFor="purchase">Date of Purchase</label>
             <input
             onChange={e => setPurchase(e.target.value)}
             value={purchase}
@@ -60,6 +61,41 @@ const ReviewForm = () => {
             id="purchase"
             className="date-text"
             name="purchase" required />
+          </div>
+          <div className="form-group">
+            <p className="form-label" id="radio1">Radio Button Question</p>
+            <label className="form-label" id="answer" htmlFor="answer">
+            <input
+            id="answer"
+            value="answer1"
+            name="answer"
+            type="radio"
+            className="input-radio"
+            onChange={e => setAnswer(e.target.value)} />Answer 1</label>
+            <label className="form-label" id="answer" htmlFor="answer">
+            <input
+            id="answer"
+            value="answer2"
+            name="answer"
+            type="radio"
+            className="input-radio"
+            onChange={e => setAnswer(e.target.value)} />Answer 2</label>
+            <label className="form-label" id="answer" htmlFor="answer">
+            <input
+            id="answer"
+            value="answer3"
+            name="answer"
+            type="radio"
+            className="input-radio"
+            onChange={e => setAnswer(e.target.value)} />Answer 3</label>
+            <label className="form-label" id="answer" htmlFor="answer">
+            <input
+            id="answer"
+            value="answer4"
+            name="answer"
+            type="radio"
+            className="input-radio"
+            onChange={e => setAnswer(e.target.value)} />Answer 4</label>
           </div>
           <div className="form-group">
             <label className="form-label" id="review" htmlFor="review">Product Review</label>
