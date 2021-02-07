@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import TextareaAutosize from 'react-autosize-textarea'
 import fetch from 'isomorphic-unfetch'
+var validator = require('email-validator')
 
 const ReviewForm = () => {
 
@@ -14,17 +15,23 @@ const ReviewForm = () => {
 
   
   const submitForm = async e => {
-    // e.preventDefault()
-    try {
-      const body = {name, email, purchase, answer, review, img, vid}
-      const res = await fetch(`http://localhost:3000/api/review`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body)
-      })
-      const data = await res.json()
-    } catch (error) {
-      console.error(error)
+
+    const mail = {email}
+    var valid = validator.validate(mail.email)
+    if (valid) {
+      try {
+        const body = {name, email, purchase, answer, review, img, vid}
+        const res = await fetch(`http://localhost:3000/api/review`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body)
+        })
+        const data = await res.json()
+      } catch (error) {
+        console.error(error)
+      }
+    } else {
+      alert("No u")
     }
   }
 
