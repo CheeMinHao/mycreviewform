@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import TextareaAutosize from 'react-autosize-textarea'
 import fetch from 'isomorphic-unfetch'
 var validator = require('email-validator')
+var dateFormat = require('dateformat')
 
 const ReviewForm = () => {
 
@@ -12,13 +13,23 @@ const ReviewForm = () => {
   const [img, setImg] = useState('')
   const [vid, setVid] = useState('')
   const [answer, setAnswer] = useState('')
+  
+
+  const correctDate = (date) => {
+    const now = new Date()
+    const put = new Date(date.purchase)
+    return put < now
+  }
 
   
   const submitForm = async e => {
 
     const mail = {email}
+    const dateCheck = {purchase}
     var valid = validator.validate(mail.email)
-    if (valid) {
+    const checkDate = correctDate(dateCheck)
+    debugger
+    if (valid && checkDate) {
       try {
         const body = {name, email, purchase, answer, review, img, vid}
         const res = await fetch(`http://localhost:3000/api/review`, {
@@ -31,7 +42,7 @@ const ReviewForm = () => {
         console.error(error)
       }
     } else {
-      alert("No u")
+      alert("Wrong Information Input")
     }
   }
 
