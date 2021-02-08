@@ -41,8 +41,12 @@ const ReviewForm = () => {
       } catch (error) {
         console.error(error)
       }
+    } else if (valid && !checkDate) {
+      alert("Date Error")
+    } else if (!valid && checkDate) {
+      alert("Email Error")
     } else {
-      alert("Wrong Information Input")
+      alert("Email and Date Error")
     }
   }
 

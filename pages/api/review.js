@@ -6,7 +6,7 @@ export default async function handle(req, res) {
         data: {
           name: name,
           email: email,
-          purchase: purchase_date,
+          purchase: purchase,
           radio: answer,
           review: review,
           img: img,
