@@ -18,7 +18,7 @@ const ReviewForm = () => {
   const correctDate = (date) => {
     const now = new Date()
     const put = new Date(date.purchase)
-    return put < now
+    return put <= now
   }
 
   
