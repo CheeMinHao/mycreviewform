@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@prisma/client": "^2.16.0",
+    "@tanker/file-reader": "^2.9.0",
     "@zeit/next-css": "^1.0.1",
     "@zeit/next-sass": "^1.0.1",
     "axios": "^0.21.1",

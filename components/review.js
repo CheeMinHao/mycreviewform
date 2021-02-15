@@ -1,8 +1,8 @@
-import React, {useState} from 'react'
+import {useEffect, useState} from 'react'
 import TextareaAutosize from 'react-autosize-textarea'
 import fetch from 'isomorphic-unfetch'
 var validator = require('email-validator')
-var dateFormat = require('dateformat')
+import FileReader from '@tanker/file-reader'
 
 const ReviewForm = () => {
 
@@ -21,6 +21,12 @@ const ReviewForm = () => {
     return put <= now
   }
 
+  const handleChange = event => {
+    const image = event.target.files[0];
+    let blob = new Blob([image], {type: 'image'});
+    setImg(URL.createObjectURL(blob));
+  }
+
   
   const submitForm = async e => {
 
@@ -28,6 +34,7 @@ const ReviewForm = () => {
     const dateCheck = {purchase}
     var valid = validator.validate(mail.email)
     const checkDate = correctDate(dateCheck)
+    console.log({img})
     debugger
     if (valid && checkDate) {
       try {
@@ -133,10 +140,10 @@ const ReviewForm = () => {
           <div className="form-group">
             <label className="form-label" id="img" htmlFor="img">Image Upload</label>
             <input
-            onChange={e => setImg(e.target.value)}
-            value={img}
-            type="text"
-            placeholder="Insert Link Here"
+            onChange={handleChange}
+            accept=".jpg, .png, .jpeg"
+            type="file"
+            // placeholder="Insert Link Here"
             className="texting"
             id="img"
             name="img" />
