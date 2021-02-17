@@ -27,7 +27,7 @@ const Review = ({reviews}) => {
       <li key={review.id}>
           <p>{review.name}</p>
           <p>{review.purchase}</p>
-          <img id="image" src={review.img} />
+          <img id="image" width="500" heigh="200" src={review.img} />
       </li>
   )
   }

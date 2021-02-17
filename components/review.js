@@ -23,24 +23,15 @@ const ReviewForm = () => {
   const handleChange = event => {
     const image = event.target.files[0];
     let blob = new Blob([image], {type: 'image'});
-    const img = document.getElementById("photo");
-    // img.src = URL.createObjectURL(image);
-    // img.height = 90;
-    // img.onload = function() {
-    //   URL.revokeObjectURL(img.src)
-    // }
-    setImg(URL.createObjectURL(blob));
 
-    // let reader = new FileReader();
-    // reader.readAsDataURL(blob);
+    let reader = new FileReader();
+    reader.readAsDataURL(blob);
 
-    // reader.onload = function() {
-    //   const result = reader.result
-    //   console.log(result)
-    //   setImg(result);
-    // }
-
-    // setImg(handleRead(image));
+    reader.onload = function() {
+      const result = reader.result
+      console.log(result)
+      setImg(result);
+    }
   }
 
   
@@ -63,6 +54,7 @@ const ReviewForm = () => {
       } catch (error) {
         console.error(error)
       }
+      window.open("/feed", "_blank")
     } else if (valid && !checkDate) {
       alert("Date Error")
     } else if (!valid && checkDate) {
