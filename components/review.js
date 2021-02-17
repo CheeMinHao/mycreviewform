@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import {useState} from 'react'
 import TextareaAutosize from 'react-autosize-textarea'
 import fetch from 'isomorphic-unfetch'
 var validator = require('email-validator')
@@ -24,12 +24,23 @@ const ReviewForm = () => {
     const image = event.target.files[0];
     let blob = new Blob([image], {type: 'image'});
     const img = document.getElementById("photo");
-    img.src = URL.createObjectURL(image);
-    img.height = 90;
-    img.onload = function() {
-      URL.revokeObjectURL(img.src)
-    }
-    setImg(URL.createObjectURL(image));
+    // img.src = URL.createObjectURL(image);
+    // img.height = 90;
+    // img.onload = function() {
+    //   URL.revokeObjectURL(img.src)
+    // }
+    setImg(URL.createObjectURL(blob));
+
+    // let reader = new FileReader();
+    // reader.readAsDataURL(blob);
+
+    // reader.onload = function() {
+    //   const result = reader.result
+    //   console.log(result)
+    //   setImg(result);
+    // }
+
+    // setImg(handleRead(image));
   }
 
   
@@ -39,7 +50,6 @@ const ReviewForm = () => {
     const dateCheck = {purchase}
     var valid = validator.validate(mail.email)
     const checkDate = correctDate(dateCheck)
-    console.log({img})
     debugger
     if (valid && checkDate) {
       try {
