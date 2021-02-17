@@ -2,7 +2,6 @@ import {useEffect, useState} from 'react'
 import TextareaAutosize from 'react-autosize-textarea'
 import fetch from 'isomorphic-unfetch'
 var validator = require('email-validator')
-import FileReader from '@tanker/file-reader'
 
 const ReviewForm = () => {
 
@@ -24,7 +23,13 @@ const ReviewForm = () => {
   const handleChange = event => {
     const image = event.target.files[0];
     let blob = new Blob([image], {type: 'image'});
-    setImg(URL.createObjectURL(blob));
+    const img = document.getElementById("photo");
+    img.src = URL.createObjectURL(image);
+    img.height = 90;
+    img.onload = function() {
+      URL.revokeObjectURL(img.src)
+    }
+    setImg(URL.createObjectURL(image));
   }
 
   
@@ -147,6 +152,9 @@ const ReviewForm = () => {
             className="texting"
             id="img"
             name="img" />
+          </div>
+          <div className="form-group">
+            <img id="photo" src="" />
           </div>
           <div className="form-group">
             <label className="form-label" id="vid" htmlFor="vid">Video Upload</label>
